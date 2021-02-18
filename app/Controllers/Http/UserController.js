@@ -101,16 +101,17 @@ class UserController {
     /*await auth
     .authenticator('jwt')
     .revokeTokens(user)*/
-    let token = await auth.authenticator().revokeTokens(user)
+    await auth.authenticator('jwt').revokeTokens(user, true)
     /*const refreshToken = '' // get it from user
 
     await auth
     .authenticator('jwt')
     .revokeTokens([refreshToken], true)*/
+    
 
     return response.json({
       mensaje: "Cerro sesion",
-      token
+      
     })
   }
 
