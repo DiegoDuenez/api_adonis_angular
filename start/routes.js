@@ -28,17 +28,19 @@ Route.group(() =>{
   Route.get('usuarios/:id?', 'UserController.index') 
   Route.get('perfil', 'UserController.getUser')
   Route.get('productos/:id?', 'ProductoController.index')
-  Route.get('productos/usuario/:id', 'ProductoController.productoUsuario') //falta
+  Route.get('productos/usuario/:id', 'ProductoController.productoUsuario')
   Route.get('comentarios/:id?', 'ComentarioController.index') 
   Route.get('comentarios/producto/:id', 'ComentarioController.comentarioProducto')
   Route.get('comentarios/usuario/:id', 'ComentarioController.comentarioUsuario')
-  Route.post('registrar/productos', 'ProductoController.create') //falta
-  Route.post('registrar/comentarios', 'ComentarioController.create') //falta
+
+  Route.post('registrar/productos', 'ProductoController.create')
+  Route.post('registrar/comentarios', 'ComentarioController.create')
+
   Route.put('actualizar/productos/:id', 'ProductoController.update')  //falta
   Route.put('actualizar/comentarios/:id', 'ComentarioController.update') //falta
+
   Route.delete('borrar/productos/:id', 'ProductoController.delete') //falta
   Route.delete('borrar/comentarios/:id', 'ComentarioController.delete') //falta
   Route.delete('logout', 'UserController.logout') 
-  
   
 }).middleware('auth');
