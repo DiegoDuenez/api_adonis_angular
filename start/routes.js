@@ -38,6 +38,7 @@ Route.group(() =>{
 
   Route.put('actualizar/productos/:id', 'ProductoController.update')  //falta
   Route.put('actualizar/comentarios/:id', 'ComentarioController.update') //falta
+  Route.put('actualizar/usuarios/:id', 'UserController.update')
 
   Route.delete('borrar/productos/:id', 'ProductoController.delete') //falta
   Route.delete('borrar/comentarios/:id', 'ComentarioController.delete') //falta

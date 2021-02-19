@@ -80,6 +80,44 @@ class UserController {
     })
   }
 
+  async update({response,auth,request,params: {id}}){
+
+   
+    const user = await auth.getUser()
+
+   
+
+    if (user.id == id) {
+      
+      const input = request.all();
+
+      const validation = await validate(request.all(), {
+        nombre: 'min:3|max:255',
+        apellidos: 'min:3',
+        email: 'email',
+        edad: 'min:1'
+      });
+      if (validation.fails()) {
+        return validation.messages()
+      }
+
+      await User.query().where('id', id).update(input)
+
+
+      return response.status(200).json({
+        mensaje: "La informacion del usuario se actualizo con exito",
+        usuario: user
+      })
+
+    } 
+    else {
+      return response.status(400).json({
+        mensaje: "No eres este usuario",
+      })
+    }
+
+  } 
+
 
   async getUser({
     auth,

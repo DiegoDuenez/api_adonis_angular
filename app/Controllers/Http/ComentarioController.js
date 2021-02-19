@@ -118,7 +118,7 @@ class ComentarioController {
       }
 
 
-  await user.comentarios().update(input).where("id", "=", id)
+      await user.comentarios().update(input).where("id", "=", id)
 
 
 
