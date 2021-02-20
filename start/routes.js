@@ -36,12 +36,12 @@ Route.group(() =>{
   Route.post('registrar/productos', 'ProductoController.create')
   Route.post('registrar/comentarios', 'ComentarioController.create')
 
-  Route.put('actualizar/productos/:id', 'ProductoController.update')  //falta
-  Route.put('actualizar/comentarios/:id', 'ComentarioController.update') //falta
+  Route.put('actualizar/productos/:id', 'ProductoController.update') 
+  Route.put('actualizar/comentarios/:id', 'ComentarioController.update')
   Route.put('actualizar/usuarios/:id', 'UserController.update')
 
-  Route.delete('borrar/productos/:id', 'ProductoController.delete') //falta
-  Route.delete('borrar/comentarios/:id', 'ComentarioController.delete') //falta
+  Route.delete('borrar/productos/:id', 'ProductoController.delete')
+  Route.delete('borrar/comentarios/:id', 'ComentarioController.delete')
   Route.delete('logout', 'UserController.logout') 
   
 }).middleware('auth');

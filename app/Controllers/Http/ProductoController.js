@@ -1,5 +1,7 @@
 'use strict'
 
+const Db = use('Database')
+const User = use('App/Models/User') //Modelo User
 const Comentario = use('App/Models/Comentario') //Modelo Comentario
 const Producto = use('App/Models/Producto') //Modelo Producto
 const {
@@ -17,14 +19,31 @@ class ProductoController {
 
     if (id == null) {
 
-      const productos = await Producto.all()
+      /*const productos = await Producto.all()*/
+      // const comentarios = await Comentario.query().where('user_id', id).fetch()
+     /* const usuarios = await User.all()
+      const productos = await Producto.query().where('user_id').fetch()*/
+      const productos = await Db
+      .select('users.nombre', 'productos.*')
+      .from('productos')
+      .innerJoin('users', 'users.id', 'productos.user_id')
+
+
+
       return response.status(200).json({
         productos: productos
       })
 
     } else if (id) {
 
-      const producto = await Producto.find(id)
+  
+      //const producto = await Producto.find(id)
+
+      const producto = await Db
+      .select('users.nombre', 'productos.*')
+      .from('productos')
+      .innerJoin('users', 'users.id', 'productos.user_id').where("productos.id", id)
+
       return response.status(200).json({
         producto: producto
       })
@@ -43,8 +62,15 @@ class ProductoController {
     request,
     response
   }) {
+
     if (id) {
-      const productos = await Producto.query().where('user_id', id).fetch()
+      //const productos = await Producto.query().where('user_id', id).fetch()
+
+      const productos = await Db
+      .select('users.nombre', 'productos.*')
+      .from('productos')
+      .innerJoin('users', 'users.id', 'productos.user_id').where("user_id", id)
+
       return response.status(200).json({
         productos: productos
       })

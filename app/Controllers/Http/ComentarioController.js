@@ -1,5 +1,6 @@
 'use strict'
 
+const Db = use('Database')
 const Comentario = use('App/Models/Comentario') //Modelo Comentario
 const {
   validate
@@ -19,12 +20,26 @@ class ComentarioController {
     response
   }) {
     if (id == null) {
-      const comentarios = await Comentario.all()
+      const comentarios = await Db
+      .select('users.nombre', 'comentarios.*', 'productos.nombre_producto')
+      .from('comentarios')
+      .innerJoin('users', 'users.id', 'comentarios.user_id')
+      .innerJoin('productos', 'productos.id', 'comentarios.producto_id')
+      //.where("user_id", id)
+
+     // const comentarios = await Comentario.all()
       return response.status(200).json({
         comentarios: comentarios
       })
     } else if (id) {
-      const comentario = await Comentario.find(id)
+
+      const comentario = await Db
+      .select('users.nombre', 'comentarios.*', 'productos.nombre_producto')
+      .from('comentarios')
+      .innerJoin('users', 'users.id', 'comentarios.user_id')
+      .innerJoin('productos', 'productos.id', 'comentarios.producto_id')
+      .where("comentarios.id", id)
+
       return response.status(200).json({
         comentario: comentario
       })
@@ -44,7 +59,16 @@ class ComentarioController {
     response
   }) {
     if (id) {
-      const comentarios = await Comentario.query().where('producto_id', id).fetch()
+      //const comentarios = await Comentario.query().where('producto_id', id).fetch()
+
+      const comentarios = await Db
+      .select('users.nombre', 'comentarios.*', 'productos.nombre_producto')
+      .from('comentarios')
+      .innerJoin('users', 'users.id', 'comentarios.user_id')
+      .innerJoin('productos', 'productos.id', 'comentarios.producto_id')
+      .where("comentarios.producto_id", id)
+      
+
       return response.status(200).json({
         comentarios: comentarios
       })
@@ -64,7 +88,16 @@ class ComentarioController {
     response
   }) {
     if (id) {
-      const comentarios = await Comentario.query().where('user_id', id).fetch()
+     
+      //const comentarios = await Comentario.query().where('user_id', id).fetch()
+
+      const comentarios = await Db
+      .select('users.nombre', 'comentarios.*', 'productos.nombre_producto')
+      .from('comentarios')
+      .innerJoin('users', 'users.id', 'comentarios.user_id')
+      .innerJoin('productos', 'productos.id', 'comentarios.producto_id')
+      .where("comentarios.user_id", id)
+
       return response.status(200).json({
         comentarios: comentarios
       })
